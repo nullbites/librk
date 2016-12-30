@@ -1,5 +1,7 @@
-CC=clang
-CFLAGS=-g -O0 -Weverything
+CC=gcc
+CFLAGS=-Ofast -Wall -pedantic -DFORTIFY_SOURCE=2
+DCC=clang
+DCFLAGS=-ggdb -O0 -Weverything -pedantic
 
 all:
 	$(CC) $(CFLAGS) -c blow_head_off.c

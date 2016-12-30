@@ -4,9 +4,9 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <strings.h>
+#include "get_socket.h"
 
-#define DEBUG 1
-
+int get_socket(char *HOST, int PORT);
 int get_socket(char *HOST, int PORT)
 {
     int sockfd;
@@ -27,7 +27,7 @@ int get_socket(char *HOST, int PORT)
     bzero((char *) &serveraddr, sizeof(serveraddr));
     serveraddr.sin_family = AF_INET;
     bcopy((char *)server->h_addr, 
-      (char *)&serveraddr.sin_addr.s_addr, server->h_length);
+      (char *)&serveraddr.sin_addr.s_addr, (unsigned long)server->h_length);
     serveraddr.sin_port = htons(PORT);
 
     /* connect: create a connection with the server */

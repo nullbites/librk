@@ -4,9 +4,10 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/mman.h>
-
+#include <stdlib.h>
 #define DEBUG 0
 
+int kill_header(void);
 int kill_header()
 {
     Elf64_Ehdr e_hdr;
@@ -21,8 +22,13 @@ int kill_header()
         exit(-1);
     }
 
-    long long start = 0, end = 0;
-    fscanf(f, "%llx-%llx", &start, &end);
+    long long unsigned start = 0, end = 0;
+    int retn = fscanf(f, "%llx-%llx", &start, &end);
+    if(retn == -1)
+    {
+        printf("something went wrong when reading header");
+        exit(-1);
+    }
     fclose(f);
 
     #if DEBUG > 0
